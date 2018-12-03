@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
+//using System.Linq;
 using System.Numerics;
 using System.Text;
-using System.Threading.Tasks;
+// using System.Threading.Tasks;
 
 namespace PrimeGen
 {
-	class Program
+	class Program2
 	{
-		static void Main(string[] args)
+		static void Main2(string[] args)
 		{
 			//Stopwatch sw = new Stopwatch();
 			//sw.Start();
