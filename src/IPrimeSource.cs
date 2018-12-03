@@ -5,7 +5,6 @@ namespace PrimeGen
 {
 	public interface IPrimeSource
 	{
-		BigInteger GetPrime(long index);
-		BigInteger NextPrime(BigInteger number, out long index);
+		BigInteger NextPrime(BigInteger number);
 	}
 }

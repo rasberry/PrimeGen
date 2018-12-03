@@ -125,7 +125,7 @@ namespace PrimeGen
 			}
 		}
 
-		public long PrimeNear(BigInteger number)
+		public long IndexOf(BigInteger number)
 		{
 			long start = 0;
 			long end = Count;
@@ -142,7 +142,7 @@ namespace PrimeGen
 					end = index - 1;
 				}
 			}
-			return start;
+			return -1;
 		}
 
 		//public void Clear()

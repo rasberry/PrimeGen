@@ -44,13 +44,25 @@ namespace PrimeGen
 			return _store[index];
 		}
 
-		public BigInteger NextPrime(BigInteger number, out long index)
+		public BigInteger NextPrime(BigInteger number)
 		{
-			index = _store.PrimeNear(number);
-			if (index > -1) {
-				return _store[index];
+			Init();
+
+			if (number < 2) {
+				return 2;
 			}
-			return -1;
+
+			long index = _store.IndexOf(number);
+			if (index > -1) {
+				return GetPrime(index + 1);
+			}
+			//didn't find it so need to produce primes
+			index = _store.Count - 1;
+			BigInteger p = _store[index];
+			while(p <= number) {
+				p = GetPrime(++index);
+			}
+			return p;
 		}
 
 		static PrimeStore _store = null;
