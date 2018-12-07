@@ -48,7 +48,7 @@ namespace PrimeGen
 		{
 			Init();
 
-			if (number < 2) {
+			if (number <= 2) {
 				return 2;
 			}
 
