@@ -47,10 +47,10 @@ namespace PrimeGen
 			switch(Options.WhichGen)
 			{
 			case Options.GenType.Division:
-				gen = new PrimeDivision();
+				gen = new GenDivision();
 				break;
 			case Options.GenType.Pascal:
-				gen = new PrimePascal();
+				gen = new GenPascal();
 				break;
 			}
 
@@ -79,6 +79,7 @@ namespace PrimeGen
 
 		static void DoBits()
 		{
+
 		}
 
 		static void DoBitsImg()

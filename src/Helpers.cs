@@ -1,4 +1,5 @@
 using System;
+using System.Numerics;
 
 namespace PrimeGen
 {
@@ -8,6 +9,16 @@ namespace PrimeGen
 		{
 			if (subj == null) { return false; }
 			return subj.EndsWith(check,StringComparison.OrdinalIgnoreCase);
+		}
+
+		public static BigInteger Log2(this BigInteger number)
+		{
+			BigInteger count = 0;
+			while(number > 1) {
+				number >>= 1;
+				count++;
+			}
+			return count;
 		}
 	}
 

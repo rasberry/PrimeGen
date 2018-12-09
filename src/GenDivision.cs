@@ -3,7 +3,7 @@ using System.Numerics;
 
 namespace PrimeGen
 {
-	public class PrimeDivision : IPrimeSource
+	public class GenDivision : IPrimeSource
 	{
 		public BigInteger GetPrime(long index)
 		{

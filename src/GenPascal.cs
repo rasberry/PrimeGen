@@ -3,7 +3,7 @@ using System.Numerics;
 
 namespace PrimeGen
 {
-	public class PrimePascal : IPrimeSource
+	public class GenPascal : IPrimeSource
 	{
 		public BigInteger NextPrime(BigInteger number)
 		{

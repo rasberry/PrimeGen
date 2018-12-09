@@ -11,14 +11,14 @@ namespace test
 		[TestMethod]
 		public void PrimeSieveTest1()
 		{
-			var p = new PrimeSieve();
+			var p = new GenDivision();
 			RunPrimeTest(p);
 		}
 
 		[TestMethod]
 		public void PrimePascalTest1()
 		{
-			var p = new PrimePascal();
+			var p = new GenPascal();
 			RunPrimeTest(p);
 		}
 
