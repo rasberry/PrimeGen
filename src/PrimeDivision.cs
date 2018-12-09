@@ -54,7 +54,7 @@ namespace PrimeGen
 
 			var last = _store[_store.Count - 1];
 			if (number > last) {
-				//number is past the end of the list
+				//generate primes since number is past the end of the list
 				long index = _store.Count - 1;
 				BigInteger p = _store[index];
 				while(p <= number) {
@@ -63,6 +63,7 @@ namespace PrimeGen
 				return p;
 			}
 			else {
+				//find the prime or nearest prime in the list
 				long index = _store.IndexOf(number, out long near);
 				if (index > -1) {
 					return GetPrime(index + 1);
@@ -93,7 +94,7 @@ namespace PrimeGen
 
 		static BigInteger Sqrt(BigInteger n)
 		{
-			if (n == 0) { return 0; }
+			if (n == 0 || n == 1) { return n; }
 			if (n <= 0) {
 				throw new ArithmeticException("NaN");
 			}
@@ -103,6 +104,7 @@ namespace PrimeGen
 
 			BigInteger last0 = 0;
 			BigInteger last1 = 1;
+			//some times the number oscilates between sqrt+0 and sqrt+1
 			while(last1 != root)
 			{
 				last1 = last0;
