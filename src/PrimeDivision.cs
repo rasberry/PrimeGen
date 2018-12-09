@@ -3,7 +3,7 @@ using System.Numerics;
 
 namespace PrimeGen
 {
-	public class PrimeSieve : IPrimeSource
+	public class PrimeDivision : IPrimeSource
 	{
 		public BigInteger GetPrime(long index)
 		{
@@ -48,21 +48,29 @@ namespace PrimeGen
 		{
 			Init();
 
-			if (number <= 2) {
+			if (number < 2) {
 				return 2;
 			}
 
-			long index = _store.IndexOf(number);
-			if (index > -1) {
-				return GetPrime(index + 1);
+			var last = _store[_store.Count - 1];
+			if (number > last) {
+				//number is past the end of the list
+				long index = _store.Count - 1;
+				BigInteger p = _store[index];
+				while(p <= number) {
+					p = GetPrime(++index);
+				}
+				return p;
 			}
-			//didn't find it so need to produce primes
-			index = _store.Count - 1;
-			BigInteger p = _store[index];
-			while(p <= number) {
-				p = GetPrime(++index);
+			else {
+				long index = _store.IndexOf(number, out long near);
+				if (index > -1) {
+					return GetPrime(index + 1);
+				}
+				else {
+					return _store[near];
+				}
 			}
-			return p;
 		}
 
 		static PrimeStore _store = null;

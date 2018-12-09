@@ -125,9 +125,9 @@ namespace PrimeGen
 			}
 		}
 
-		public long IndexOf(BigInteger number)
+		public long IndexOf(BigInteger number, out long start)
 		{
-			long start = 0;
+			start = 0;
 			long end = Count;
 
 			while(start <= end) {

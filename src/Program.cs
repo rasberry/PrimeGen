@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Numerics;
 
 namespace PrimeGen
@@ -8,23 +9,80 @@ namespace PrimeGen
 	{
 		static void Main(string[] args)
 		{
-			////var gen = new PrimeSieve();
-			var gen = new PrimePascal();
-			long count = 1000;
-			BigInteger p = 0;
-			while(--count >= 0) {
-				p = gen.NextPrime(p);
-				Console.WriteLine(p);
+			if (args.Length < 1) {
+				Log.Message("Use -h / --help to show full help");
+				return;
+			}
+			if (!Options.ParseArgs(args) || !Options.AreInputsSane()) {
+				return;
 			}
 
-			//var gen = new PrimePascal();
-			//var start = BigInteger.Parse("441123");
-			//Stopwatch sw = Stopwatch.StartNew();
-			//gen.NextPrime(start);
-			//Console.WriteLine("1 "+sw.ElapsedMilliseconds);
-			//sw.Restart();
-			//gen.NextPrime1(start);
-			//Console.WriteLine("2 "+sw.ElapsedMilliseconds);
+			try {
+				MainMain();
+			}
+			catch(Exception e) {
+				#if DEBUG
+				Log.Error(e.ToString());
+				#else
+				Log.Error(e.Message);
+				#endif
+			}
+		}
+
+		static void MainMain()
+		{
+			Log.Debug("a = "+Options.Action);
+
+			switch(Options.Action)
+			{
+			case Options.ActionType.Gen: DoGen(); break;
+			case Options.ActionType.Bits: DoBits(); break;
+			case Options.ActionType.BitsImg: DoBitsImg(); break;
+			}
+		}
+
+		static void DoGen()
+		{
+			IPrimeSource gen = null;
+			switch(Options.WhichGen)
+			{
+			case Options.GenType.Division:
+				gen = new PrimeDivision();
+				break;
+			case Options.GenType.Pascal:
+				gen = new PrimePascal();
+				break;
+			}
+
+			TextWriter tw = null;
+			try {
+				if (Options.OutputFile != null) {
+					var fs = File.Open(Options.OutputFile,FileMode.Create,FileAccess.Write,FileShare.Read);
+					tw = new StreamWriter(fs);
+				} else {
+					tw = Console.Out;
+				}
+
+				BigInteger p = Options.Start - 1;
+				Log.Debug("s = "+p);
+				while(p <= Options.End) {
+					p = gen.NextPrime(p);
+					tw.WriteLine(p);
+				}
+			}
+			finally {
+				if (Options.OutputFile != null && tw != null) {
+					tw.Dispose();
+				}
+			}
+		}
+
+		static void DoBits()
+		{
+		}
+
+		static void DoBitsImg()
+		{
 		}
 	}
 }

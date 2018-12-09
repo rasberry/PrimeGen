@@ -7,7 +7,7 @@ namespace PrimeGen
 	{
 		public BigInteger NextPrime(BigInteger number)
 		{
-			if (number <= 2) {
+			if (number < 2) {
 				return 2;
 			}
 
