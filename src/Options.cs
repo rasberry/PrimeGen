@@ -80,11 +80,7 @@ namespace PrimeGen
 					Log.ShowInfo = true;
 				}
 				else if (curr == "-t") {
-					if (Action == ActionType.None) {
-						ShowAllTypes();
-						return true;
-					}
-					else if (++a < len) {
+					if (++a < len) {
 						if (Action == ActionType.Gen
 							&& !TryParseType<GenType>(args[a],out WhichGen)) {
 							return false;
@@ -97,6 +93,10 @@ namespace PrimeGen
 							&& !TryParseType<BitsType>(args[a],out WhichBits)) {
 							return false;
 						}
+					}
+					else {
+						ShowAllTypes();
+						return false;
 					}
 				}
 				else if (curr == "-s" && ++a < len) {
@@ -160,7 +160,7 @@ namespace PrimeGen
 					}
 				}
 				else if (curr == "-p" && ++a < len) {
-					//TODO
+					//TODO - Color palette file to use for coloring
 				}
 				else {
 					if (Action == ActionType.None) {
@@ -208,7 +208,7 @@ namespace PrimeGen
 		static bool TryParseType<T>(string inp,out T item) where T:struct
 		{
 			if (!Enum.TryParse<T>(inp,true,out item)) {
-				Log.Error("could not parse '"+inp+"'");
+				Log.Error("could not parse type '"+inp+"'");
 				return false;
 			}
 			return true;
