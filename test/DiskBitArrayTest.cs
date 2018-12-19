@@ -12,12 +12,12 @@ namespace test
 		[TestMethod]
 		public void DBATest1()
 		{
-			var rnd1 = new Random(555);
 			string tmp = Path.GetTempFileName();
 			DiskBitArray dba = null;
 			try {
 				dba = new DiskBitArray(tmp,1024L*1024L);
 
+				var rnd1 = new Random(555);
 				for(int b=0; b<dba.Length; b++) {
 					bool on = rnd1.Next() % 2 == 1;
 					dba[b] = on;

@@ -11,14 +11,28 @@ using System.Threading.Tasks;
 
 namespace PrimeGen
 {
-	class PrimeStore
+	class PrimeStore : IDisposable
 	{
-		public PrimeStore(string filename)
+		static PrimeStore _inst = null;
+		public static PrimeStore Self {
+			get {
+				if (_inst != null) { return _inst; }
+				_inst = new PrimeStore(Options.PrimeStoreFile);
+				return _inst;
+			}
+		}
+
+		private PrimeStore(string filename)
 		{
 			Init(filename);
 		}
 
-		SQLiteConnection sqConnection;
+		~PrimeStore()
+		{
+			Dispose();
+		}
+
+		SQLiteConnection sqConnection = null;
 
 		void Init(string filename)
 		{
@@ -38,6 +52,17 @@ namespace PrimeGen
 			{
 				command.ExecuteNonQuery();
 			}
+
+			if (Count < 8) {
+				/*0*/ Add(new BigInteger(2));
+				/*1*/ Add(new BigInteger(3));
+				/*2*/ Add(new BigInteger(5));
+				/*3*/ Add(new BigInteger(7));
+				/*4*/ Add(new BigInteger(11));
+				/*5*/ Add(new BigInteger(13));
+				/*6*/ Add(new BigInteger(17));
+				/*7*/ Add(new BigInteger(19));
+			};
 		}
 
 		static BigInteger BytesToBigInt(byte[] encoded)
@@ -145,49 +170,12 @@ namespace PrimeGen
 			return -1;
 		}
 
-		//public void Clear()
-		//{
-		//	throw new NotImplementedException();
-		//}
-
-		//public bool Contains(BigInteger item)
-		//{
-		//	throw new NotImplementedException();
-		//}
-
-		//public void CopyTo(BigInteger[] array, int arrayIndex)
-		//{
-		//	throw new NotImplementedException();
-		//}
-
-		//public IEnumerator<BigInteger> GetEnumerator()
-		//{
-		//	throw new NotImplementedException();
-		//}
-
-		//public int IndexOf(BigInteger item)
-		//{
-		//	throw new NotImplementedException();
-		//}
-
-		//public void Insert(int index, BigInteger item)
-		//{
-		//	throw new NotImplementedException();
-		//}
-
-		//public bool Remove(BigInteger item)
-		//{
-		//	throw new NotImplementedException();
-		//}
-
-		//public void RemoveAt(int index)
-		//{
-		//	throw new NotImplementedException();
-		//}
-
-		//IEnumerator IEnumerable.GetEnumerator()
-		//{
-		//	return GetEnumerator();
-		//}
+		public void Dispose()
+		{
+			if (sqConnection != null) {
+				sqConnection.Dispose();
+				sqConnection = null;
+			}
+		}
 	}
 }

@@ -61,6 +61,7 @@ namespace PrimeGen
 		public static string OutputFile = null;
 		public static SizeL Dimensions = new SizeL(0,0);
 		public static int BitsPerColor = 1;
+		public static string PrimeStoreFile = "primes.sqlite3"; //TODO make this configurable
 
 		public static bool ParseArgs(string[] args)
 		{
