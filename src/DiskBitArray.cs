@@ -44,6 +44,15 @@ namespace PrimeGen
 			}
 		}
 
+		public void ResetAllTo(bool value)
+		{
+			long len = Capacity;
+			byte bval = value ? Byte.MaxValue : Byte.MinValue;
+			for(long b=0; b<len; b++) {
+				mmva.Write(b,bval);
+			}
+		}
+
 		public long Length { get { return Capacity * 8; }}
 
 		string FileName;

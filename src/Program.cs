@@ -79,7 +79,8 @@ namespace PrimeGen
 
 		static void DoBits()
 		{
-
+			var bits = new BitsEratosthenes();
+			bits.FillPrimes(0);
 		}
 
 		static void DoBitsImg()

@@ -187,8 +187,15 @@ namespace PrimeGen
 				}
 			}
 			else if (Action == ActionType.Bits) {
-				if (TargetSize != 0 && End != 100) {
+				if (TargetSize != 0 && End != 0) {
 					Log.Warning("-l will not be used since -e is set");
+				}
+				if (TargetSize == 0 && End == 0) {
+					TargetSize = 1024;
+				}
+				if (String.IsNullOrWhiteSpace(OutputFile)) {
+					Log.Error("an output file must be provided");
+					return false;
 				}
 			}
 			else if (Action == ActionType.BitsImg) {

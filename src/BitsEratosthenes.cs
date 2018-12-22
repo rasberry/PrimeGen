@@ -18,6 +18,39 @@ namespace PrimeGen
 			return BigInteger.Zero;
 		}
 
+		public void FillPrimes(BigInteger start)
+		{
+			Init();
+
+			//TODO ignoring start for now
+			if (Current < 2) {
+				/* 1 */dba[0] = true;
+				/* 2 */dba[1] = true;
+				Current = 2;
+			}
+
+			long p = (long)Current;
+			while(p < dba.Length)
+			{
+				long index = p + p;
+				while(index < dba.Length) {
+					dba[index] = false;
+					index += p;
+				}
+				
+				long next = p + 1;
+				while(next < dba.Length && dba[next] == false) {
+					next++;
+				}
+
+				if (next >= dba.Length) {
+					return;
+				} else {
+					p = next;
+				}
+			}
+		}
+
 		void Init()
 		{
 			if (dba != null) { return; }
@@ -27,11 +60,13 @@ namespace PrimeGen
 			}
 
 			dba = new DiskBitArray(Options.OutputFile,size);
+			dba.ResetAllTo(true);
 			Current = Options.Start;
 		}
 
 		DiskBitArray dba = null;
 		BigInteger Current = BigInteger.Zero;
+		PrimeStore _store = PrimeStore.Self;
 
 		public void Dispose()
 		{
