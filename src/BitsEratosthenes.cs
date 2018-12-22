@@ -24,8 +24,6 @@ namespace PrimeGen
 
 			//TODO ignoring start for now
 			if (Current < 2) {
-				/* 1 */dba[0] = true;
-				/* 2 */dba[1] = true;
 				Current = 2;
 			}
 
@@ -34,7 +32,7 @@ namespace PrimeGen
 			{
 				long index = p + p;
 				while(index < dba.Length) {
-					dba[index] = false;
+					dba[index] = false; //cross off every composite
 					index += p;
 				}
 				
@@ -60,7 +58,7 @@ namespace PrimeGen
 			}
 
 			dba = new DiskBitArray(Options.OutputFile,size);
-			dba.ResetAllTo(true);
+			dba.ResetAllTo(true); //everything is 'prime' at first
 			Current = Options.Start;
 		}
 

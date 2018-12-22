@@ -127,7 +127,7 @@ namespace PrimeGen
 						else if (val.EndsWithIC("e")) { multiplier = 1L<<50; }
 					}
 					if (multiplier != 1) {
-						val = val.Substring(val.Length-2);
+						val = val.Substring(0,val.Length-1);
 					}
 					if (!Int64.TryParse(val,NumberStyles.Any,null,out TargetSize)) {
 						Log.Error("could not parse size '"+args[a]+"'");
